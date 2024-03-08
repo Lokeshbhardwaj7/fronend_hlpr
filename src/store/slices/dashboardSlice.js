@@ -4,6 +4,7 @@ const initialState = {
   list: [],
   storeList: [],
   jobsList: [],
+  viewJobApplied: [],
   pieChart: [],
   date: [],
   menuFilterType: [],
@@ -132,6 +133,10 @@ const dashboardSlice = createSlice({
       ...state,
       jobsList: action.payload
     }),
+    setViewJobApplied: (state, action) => ({
+      ...state,
+      viewJobApplied: action.payload
+    }),
     setDashboardDateRange: (state, action) => ({
       ...state,
       date: action.payload
@@ -201,6 +206,7 @@ const dashboardSlice = createSlice({
 
 export const {
   setDashboardJobList,
+  setViewJobApplied,
   setDashboardData,
   setDashboardStoreData,
   setDashboardPieChartData,

@@ -24,10 +24,12 @@ import { useState } from 'react';
 import DeleteModal from 'ui-component/DeleteModal';
 import { deleteJob } from 'store/thunk/dashboardThunk';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ value, isLoading }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   console.log('valuevalue', value);
   const startDate = moment(value?.startDate).format('DD/MM/YYYY');
   const endDate = moment(value?.end_date).format('DD/MM/YYYY');
@@ -45,6 +47,10 @@ const PopularCard = ({ value, isLoading }) => {
       );
     }
   };
+
+  const handleViewJob = (data) => {
+    navigate('/view-jobs', {state: data})
+    }
 
   return (
     <>
@@ -241,7 +247,7 @@ const PopularCard = ({ value, isLoading }) => {
             </Grid>
           </CardContent>
           <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
-            <Button variant="contained">
+            <Button variant="contained" onClick={() => handleViewJob(value)}>
               <RemoveRedEyeIcon />
               &nbsp;View
             </Button>

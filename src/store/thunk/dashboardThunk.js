@@ -29,7 +29,8 @@ import {
   setByCategoryTotal,
   setByGroupTotal,
   setKeywordHistoryData,
-  setDashboardJobList
+  setDashboardJobList,
+  setViewJobApplied
 } from 'store/slices/dashboardSlice';
 import Messages from '../../utils/messages';
 import apiClient from '../../utils/apiClient';
@@ -322,6 +323,24 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
   }
 });
 
+export const setApplyJob = createAsyncThunk('setApplyJob', async (_request, { dispatch }) => {
+  console.log("_request_request", _request);
+  try {
+    dispatch(setLoading(true));
+    const response = await apiClient().put(`apply/job/${_request?.jobId}`);
+    dispatch(setLoading(false));
+    if (response?.data) {
+      dispatch(notificationSuccess(response?.data?.message));
+      dispatch(getJobListing())
+    } else {
+      dispatch(notificationFail(Messages.ERROR.DEFAULT));
+    }
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(notificationFail(error?.response?.data?.message || Messages.ERROR.DEFAULT));
+  }
+});
+
 
 export const viewJobList = createAsyncThunk('viewJobList', async (_request, { dispatch }) => {
   try {
@@ -330,6 +349,23 @@ export const viewJobList = createAsyncThunk('viewJobList', async (_request, { di
     dispatch(setLoading(false));
     if (response?.data) {
       dispatch(setDashboardJobList(response?.data?.jobs));
+    } else {
+      dispatch(notificationFail(Messages.ERROR.DEFAULT));
+    }
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(notificationFail(Messages.ERROR.DEFAULT));
+  }
+});
+
+
+export const ViewJobApplied = createAsyncThunk('ViewJobApplied', async (_request, { dispatch }) => {
+  try {
+    dispatch(setLoading(true));
+    const response = await apiClient().get(`view/job/${_request?.id}`);
+    dispatch(setLoading(false));
+    if (response?.data) {
+      dispatch(setViewJobApplied(response?.data?.jobs));
     } else {
       dispatch(notificationFail(Messages.ERROR.DEFAULT));
     }

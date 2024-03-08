@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 // material-ui
-import { Button, CardActions, CardContent, Divider, Grid, Typography } from '@mui/material';
+import { CardContent, Divider, Grid, Typography } from '@mui/material';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
@@ -9,27 +9,18 @@ import SkeletonPopularCard from 'ui-component/cards/Skeleton/PopularCard';
 import { gridSpacing } from 'store/constant';
 
 // assets
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import BadgeIcon from '@mui/icons-material/Badge';
+import WcIcon from '@mui/icons-material/Wc';
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
+import FlagIcon from '@mui/icons-material/Flag';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import MoneyIcon from '@mui/icons-material/Money';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import EventIcon from '@mui/icons-material/Event';
-import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { setApplyJob } from 'store/thunk/dashboardThunk';
+
 // ==============================|| DASHBOARD DEFAULT - POPULAR CARD ||============================== //
 
 const PopularCard = ({ value, isLoading }) => {
-  const dispatch = useDispatch()
-  console.log('valuevalue', value);
-  const startDate = moment(value?.startDate).format('DD/MM/YYYY');
-  const endDate = moment(value?.end_date).format('DD/MM/YYYY');
-  const handleApply = ( value) => {
-    dispatch(setApplyJob({jobId: value?.id}))
-  }
+  // const dispatch = useDispatch();
+
   return (
     <>
       {isLoading ? (
@@ -45,21 +36,20 @@ const PopularCard = ({ value, isLoading }) => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Divider sx={{ my: 1.5, width: '100%' }} />
               <Grid item xs={12}>
                 <Grid container direction="column">
                   <Grid item>
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit" sx={{ display: 'flex' }}>
-                          <ApartmentIcon sx={{ mr: '2px' }} /> Company
+                          <BadgeIcon sx={{ mr: '2px' }} /> Name
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.company_name}
+                              {value?.user_name && value.user_name.charAt(0).toUpperCase() + value.user_name.slice(1)}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -73,15 +63,15 @@ const PopularCard = ({ value, isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit" sx={{ display: 'flex' }}>
-                          <EngineeringIcon sx={{ mr: '2px' }} />
-                          Role
+                          <WcIcon sx={{ mr: '2px' }} />
+                          Gender
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.role}
+                              {value?.user_gender && value.user_gender.charAt(0).toUpperCase() + value.user_gender.slice(1)}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -95,15 +85,15 @@ const PopularCard = ({ value, isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit" sx={{ display: 'flex' }}>
-                          <LocationOnIcon sx={{ mr: '2px' }} />
-                          Location
+                          <PhoneIphoneIcon sx={{ mr: '2px' }} />
+                          Phone Number
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.location}
+                              {value?.user_phone_number}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -117,15 +107,16 @@ const PopularCard = ({ value, isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography variant="subtitle1" color="inherit" display="flex">
-                          <MoneyIcon sx={{ mr: '2px' }} />
-                          Pay
+                          <FlagIcon sx={{ mr: '2px' }} />
+                          Nationality
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.pay} / hour
+                              {value?.user_nationality &&
+                                value.user_nationality.charAt(0).toUpperCase() + value.user_nationality.slice(1)}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -140,14 +131,14 @@ const PopularCard = ({ value, isLoading }) => {
                       <Grid item>
                         <Typography display="flex" variant="subtitle1" color="inherit">
                           <AccessTimeIcon sx={{ mr: '2px' }} />
-                          Duration
+                          Experience In
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.duration}
+                              {value?.user_role_exp}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -161,15 +152,15 @@ const PopularCard = ({ value, isLoading }) => {
                     <Grid container alignItems="center" justifyContent="space-between">
                       <Grid item>
                         <Typography display="flex" variant="subtitle1" color="inherit">
-                          <DateRangeIcon sx={{ mr: '2px' }} />
-                          Dates
+                          <LocationOnIcon sx={{ mr: '2px' }} />
+                          Lives In
                         </Typography>
                       </Grid>
                       <Grid item>
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {`${startDate} - ${endDate}`}
+                              {value?.user_area}
                             </Typography>
                           </Grid>
                         </Grid>
@@ -177,58 +168,10 @@ const PopularCard = ({ value, isLoading }) => {
                     </Grid>
                   </Grid>
                 </Grid>
-                <Divider sx={{ my: 1.5 }} />
-                <Grid container direction="column">
-                  <Grid item>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
-                        <Typography display="flex" variant="subtitle1" color="inherit">
-                          <EventIcon sx={{ mr: '2px' }} />
-                          Weekly off
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Grid container alignItems="center" justifyContent="space-between">
-                          <Grid item>
-                            <Typography variant="subtitle1" color="grey">
-                              {value?.weekly}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Divider sx={{ my: 1.5 }} />
-                <Grid container direction="column">
-                  <Grid item>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                      <Grid item>
-                        <Typography display="flex" variant="subtitle1" color="inherit">
-                          <AddToPhotosIcon sx={{ mr: '2px' }} />
-                          Additional Details
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Grid container alignItems="center" justifyContent="space-between">
-                          <Grid item>
-                            <Typography variant="subtitle1" color="grey">
-                              {value?.additional_details}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
+               
               </Grid>
             </Grid>
           </CardContent>
-          <CardActions sx={{ p: 1.25, pt: 0, justifyContent: 'center' }}>
-            <Button variant='contained'  onClick={() => handleApply(value)} disabled={value?.applied == 1}>
-              {value?.applied == 0 ? 'Apply' : 'Applied'}
-            </Button>
-          </CardActions>
         </MainCard>
       )}
     </>

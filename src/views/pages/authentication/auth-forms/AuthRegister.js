@@ -252,7 +252,6 @@ const FirebaseRegister = ({ ...others }) => {
                 cpassword,
                 company_name
               } = values; // Include area in values
-              console.log('valuesvalues', values);
 
               if (values.role == 'Employee') {
                 const requestData = {
@@ -274,7 +273,6 @@ const FirebaseRegister = ({ ...others }) => {
                   navigate: navigate
                 };
                 appDispatch(registerUser(requestData));
-                console.log('requestData', requestData);
               }else if(values.role == "Employer") {
                 const requestData = {
                   username,
