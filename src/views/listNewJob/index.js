@@ -132,8 +132,8 @@ const AccountSettings = () => {
     let newData = {
       company_name: data?.company_name,
       role: data?.role_type,
-      start_date: data?.from_date,
-      end_date: data?.to_date,
+      start_date: moment(data?.from_date).format('YYYY-MM-DD'),
+      end_date: moment(data?.to_date).format('YYYY-MM-DD'),
       location: data?.location,
       pay: data?.pay,
       duration: `${data?.duration}/${data?.week_month}`,
