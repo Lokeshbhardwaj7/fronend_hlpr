@@ -36,7 +36,6 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import { registerEmployer, registerUser } from '../../../../store/thunk/authThunk';
 import { useAppDispatch, useAppSelector } from '../../../../store';
 // import TermsConditions from 'ui-component/popup/TermsConditions';
-import { IMaskInput } from 'react-imask';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
@@ -192,9 +191,9 @@ const FirebaseRegister = ({ ...others }) => {
             then: Yup.string().required('Role Experience is required'),
             otherwise: Yup.string()
           }),
-          email : Yup.string()
-          .required('Email is required')
-          .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i, 'Email is not valid'),
+          email: Yup.string()
+            .required('Email is required')
+            .matches(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i, 'Email is not valid'),
           username: Yup.string()
             .max(50)
             .required('User name is required')
@@ -212,9 +211,10 @@ const FirebaseRegister = ({ ...others }) => {
           }),
           role: Yup.string().required('Role is required'),
           phone_number: Yup.string()
-            .matches(/^\(\d{3}\) \d{3}-\d{4}$/, 'Phone number is not valid')
-            .required('Phone number is required'),
-            expected_salary: Yup.string().when('role', {
+            .required('Phone number is required')
+            .matches(/^\d{8}$/, 'Phone number is not valid(8 digits)'),
+
+          expected_salary: Yup.string().when('role', {
             is: 'Employee',
             then: Yup.string().required('Expected Salary is required'),
             otherwise: Yup.string()
@@ -260,7 +260,7 @@ const FirebaseRegister = ({ ...others }) => {
                   password,
                   cpassword,
                   company_name,
-                  phone_number,
+                  phone_number: '+971' + phone_number,
                   nationality,
                   gender,
                   role_exp,
@@ -268,12 +268,12 @@ const FirebaseRegister = ({ ...others }) => {
                   registration_number,
                   role,
                   email,
-                  area, 
+                  area,
                   callbackFunc: resetForm,
                   navigate: navigate
                 };
                 appDispatch(registerUser(requestData));
-              }else if(values.role == "Employer") {
+              } else if (values.role == 'Employer') {
                 const requestData = {
                   username,
                   password,
@@ -286,9 +286,7 @@ const FirebaseRegister = ({ ...others }) => {
                   navigate: navigate
                 };
                 appDispatch(registerEmployer(requestData));
-
               }
-
             }
           } catch (err) {
             console.error(err);
@@ -591,26 +589,19 @@ const FirebaseRegister = ({ ...others }) => {
 
             <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
               <TextField
-                fullWidth
-                label="Phone no."
-                margin="normal"
-                name={'phone_number'}
-                error={Boolean(touched.phone_number && errors?.phone_number)}
-                helperText={touched.phone_number && errors.phone_number ? errors.phone_number : ''}
                 value={values.phone_number}
+                InputProps={{
+                  inputProps: { inputMode: 'numeric', pattern: '[0-9]*' },
+                  startAdornment: '+971'
+                }}
+                name={'phone_number'}
+                error={Boolean(touched.phone_number && errors.phone_number)}
+                helperText={touched.phone_number && errors.phone_number ? errors.phone_number : ''}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                type="text"
-                InputProps={{
-                  inputComponent: IMaskInput,
-                  inputProps: {
-                    mask: '(000) 000-0000',
-                    definitions: {
-                      0: /[0-9]/
-                    }
-                  }
-                }}
-                sx={{ ...theme.typography.customInput }}
+                type="number"
+                fullWidth
+                // sx={{ ...theme.typography.customInput }}
               />
             </FormControl>
             {values?.role == 'Employee' && (
@@ -621,7 +612,7 @@ const FirebaseRegister = ({ ...others }) => {
                     label="Nationality"
                     margin="normal"
                     name={'nationality'}
-                    error={Boolean(touched.nationality && console.log('errorserrors_nationality', errors.nationality))}
+                    error={Boolean(touched.nationality && errors.nationality)}
                     helperText={touched.nationality && errors.nationality ? errors.nationality : ''}
                     value={values.nationality}
                     onBlur={handleBlur}
