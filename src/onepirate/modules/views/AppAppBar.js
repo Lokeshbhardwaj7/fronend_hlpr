@@ -16,22 +16,27 @@ function AppAppBar() {
     <div>
       <AppBar position="fixed">
         <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ flex: 1 }} />
-            <Typography
-              variant="h1"
-              sx={{
-                textAlign: 'center',
-                fontFamily: 'Arial, sans-serif',
-                fontSize: '3rem',
-                fontWeight: 'bold',
-                color: 'transparent',
-                backgroundImage: 'linear-gradient(120deg, #f6d365, #fda085)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text'
-              }}
-            >
-              HLPR
-            </Typography>
+          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+            <Link color="inherit" variant="h6" underline="none" href="/work-well" sx={rightLink}>
+              {'Work Well'}
+            </Link>
+          </Box>
+
+          <Typography
+            variant="h1"
+            sx={{
+              textAlign: 'center',
+              fontFamily: 'Arial, sans-serif',
+              fontSize: '3rem',
+              fontWeight: 'bold',
+              color: 'transparent',
+              backgroundImage: 'linear-gradient(120deg, #f6d365, #fda085)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text'
+            }}
+          >
+            HLPR
+          </Typography>
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <Link color="inherit" variant="h6" underline="none" href="/login" sx={rightLink}>
               {'Sign In'}

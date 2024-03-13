@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ppc from './ppc';
+// import ppc from './ppc';
 // import sales from './sales';
 // import pnl from './pnl';
 import externalMenu from './externalMenu';
@@ -9,7 +9,7 @@ import externalMenu from './externalMenu';
 const getMenuItems = () => {
   const userType = JSON.parse(localStorage.getItem('user_data'));
   const menuItems = {
-    items: [ppc, externalMenu]
+    items: [externalMenu]
   };
   console.log("theming", userType)
   // if (userType?.role == 2) {

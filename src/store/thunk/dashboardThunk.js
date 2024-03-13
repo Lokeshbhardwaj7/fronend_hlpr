@@ -324,13 +324,12 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
 });
 
 export const setApplyJob = createAsyncThunk('setApplyJob', async (_request, { dispatch }) => {
-  console.log("_request_request", _request);
   try {
     dispatch(setLoading(true));
     const response = await apiClient().put(`apply/job/${_request?.jobId}`);
     dispatch(setLoading(false));
     if (response?.data) {
-      dispatch(notificationSuccess(response?.data?.message));
+      dispatch(notificationSuccess('The company has recieved your application. You will be contacted on whatsapp by them.'));
       dispatch(getJobListing())
     } else {
       dispatch(notificationFail(Messages.ERROR.DEFAULT));

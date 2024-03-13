@@ -82,21 +82,8 @@ const ProfileSection = () => {
   }, [location.pathname]);
 
   const handleLogout = async () => {
-    // appDispatch(logout());
     appDispatch(setUserData(null));
-
     localStorage.removeItem('user_data');
-    localStorage.removeItem('sortActions');
-    localStorage.removeItem('visibleColumns');
-    localStorage.removeItem('selectedDates');
-    if ('caches' in window) {
-      try {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((name) => caches.delete(name)));
-      } catch (error) {
-        console.error('Error clearing cache:', error);
-      }
-    }
     navigate('/login');
   };
 

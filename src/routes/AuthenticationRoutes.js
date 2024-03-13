@@ -8,6 +8,7 @@ import MinimalLayout from 'layout/MinimalLayout';
 const AuthLogin = Loadable(lazy(() => import('views/pages/authentication/authentication/Login')));
 const AuthRegister = Loadable(lazy(() => import('views/pages/authentication/authentication/Register')));
 const HomePage = Loadable(lazy(() => import('onepirate/Home')));
+const WorkWell = Loadable(lazy(() => import('views/workWell')))
 
 import PublicRoute from 'PublicRoute';
 
@@ -30,6 +31,14 @@ const AuthenticationRoutes = {
       element: (
         <PublicRoute>
           <HomePage />
+        </PublicRoute>
+      )
+    },
+    {
+      path: '/work-well',
+      element: (
+        <PublicRoute>
+          <WorkWell />
         </PublicRoute>
       )
     },
