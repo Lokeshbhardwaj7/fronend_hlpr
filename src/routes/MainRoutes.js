@@ -18,14 +18,14 @@ const MainRoutes = {
   path: '/',
   element: <MainLayout />,
   children: [
-    {
-      path: '/',
-      element: (
-        <PrivateRoute>
-          <DashboardDefault />
-        </PrivateRoute>
-      )
-    },
+    // {
+    //   path: '/',
+    //   element: (
+    //     <PrivateRoute>
+    //       <DashboardDefault />
+    //     </PrivateRoute>
+    //   )
+    // },
     {
       path: 'dashboard',
       element: (

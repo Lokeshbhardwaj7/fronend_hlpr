@@ -13,6 +13,7 @@ import NotificationSection from './NotificationSection';
 import { IconMenu2 } from '@tabler/icons';
 import { useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
+import SearchSection from './SearchSection';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
@@ -20,6 +21,8 @@ const Header = ({ handleLeftDrawerToggle }) => {
   const userData = useSelector((state) => state.authorization.userData);
   const location = useLocation();
   const theme = useTheme();
+
+  console.log("userDatauserData", userData);
   return (
     <>
       {/* logo & toggler button */}
@@ -57,12 +60,11 @@ const Header = ({ handleLeftDrawerToggle }) => {
         </Avatar>
       </ButtonBase>
       {/* header search */}
+      {userData?.role && userData?.role ==3 && location?.pathname == '/jobs' ? <SearchSection /> : ''}
       <Box sx={{ flexGrow: 0.1 }} />
-      
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 1 }} />
 
-     
       <Box sx={{ flexGrow: 0.01 }} />
       {(userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/') ||
       (userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/dashboard') ||

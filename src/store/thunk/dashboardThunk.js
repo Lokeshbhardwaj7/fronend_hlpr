@@ -323,6 +323,24 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
   }
 });
 
+export const getSearchJob = createAsyncThunk('getSearchJob', async (_request, { dispatch }) => {
+  console.log("_request", _request)
+  try {
+    dispatch(setLoading(true));
+    const response = await apiClient().post(`search-job`, _request);
+    console.log("response", response);
+    dispatch(setLoading(false));
+    if (response?.data) {
+      dispatch(setDashboardJobList(response?.data?.jobs));
+    } else {
+      dispatch(notificationFail(Messages.ERROR.DEFAULT));
+    }
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(notificationFail(Messages.ERROR.DEFAULT));
+  }
+});
+
 export const setApplyJob = createAsyncThunk('setApplyJob', async (_request, { dispatch }) => {
   try {
     dispatch(setLoading(true));
