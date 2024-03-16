@@ -30,7 +30,6 @@ import { useNavigate } from 'react-router';
 const PopularCard = ({ value, isLoading }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log('valuevalue', value);
   const startDate = moment(value?.startDate).format('DD/MM/YYYY');
   const endDate = moment(value?.end_date).format('DD/MM/YYYY');
   const [openDelete, setOpenDelete] = useState(false);

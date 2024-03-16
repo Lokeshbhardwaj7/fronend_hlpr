@@ -310,7 +310,6 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
   try {
     dispatch(setLoading(true));
     const response = await apiClient().get(`jobs/listing`);
-    console.log("response", response);
     dispatch(setLoading(false));
     if (response?.data) {
       dispatch(setDashboardJobList(response?.data?.jobs));
@@ -324,11 +323,9 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
 });
 
 export const getSearchJob = createAsyncThunk('getSearchJob', async (_request, { dispatch }) => {
-  console.log("_request", _request)
   try {
     dispatch(setLoading(true));
     const response = await apiClient().post(`search-job`, _request);
-    console.log("response", response);
     dispatch(setLoading(false));
     if (response?.data) {
       dispatch(setDashboardJobList(response?.data?.jobs));
@@ -395,12 +392,10 @@ export const ViewJobApplied = createAsyncThunk('ViewJobApplied', async (_request
 
 export const deleteJob = createAsyncThunk('deleteJob', async (_request, { dispatch }) => {
 
-  console.log("neww_request", _request);
   try {
     dispatch(setLoading(true));
     const response = await apiClient().delete(`job/delete/${_request.id}`);
     dispatch(setLoading(false));
-    console.log("mmmmmmmmm", response);
     if (response?.data) {
       dispatch(notificationSuccess(response?.data?.message));
       dispatch(viewJobList());

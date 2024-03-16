@@ -62,7 +62,6 @@ const MobileSearch = () => {
     }
   }, [search]);
 
-  console.log('search', search);
   return (
     <OutlineInputStyle
       id="input-search-header"

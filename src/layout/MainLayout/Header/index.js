@@ -22,7 +22,6 @@ const Header = ({ handleLeftDrawerToggle }) => {
   const location = useLocation();
   const theme = useTheme();
 
-  console.log("userDatauserData", userData);
   return (
     <>
       {/* logo & toggler button */}

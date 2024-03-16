@@ -6,7 +6,7 @@ import { Grid } from '@mui/material';
 // project imports
 import PopularCard from './PopularCard';
 import { gridSpacing } from 'store/constant';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
 import { ViewJobApplied } from 'store/thunk/dashboardThunk';
 import { useLocation } from 'react-router';
@@ -15,10 +15,7 @@ import { useLocation } from 'react-router';
 
 const ViewAppliedJobs = () => {
   const locations = useLocation();
-  console.log('locations', locations);
-  const  jobsList  = useAppSelector((state) => state.dashboardSlice?.viewJobApplied);
-  const userData = useSelector((state) => state.authorization.userData);
-  console.log('userData', userData);
+  const jobsList = useAppSelector((state) => state.dashboardSlice?.viewJobApplied);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
 
@@ -36,7 +33,6 @@ const ViewAppliedJobs = () => {
       setLoading(false);
     }
   }, [jobsList]);
-  console.log('jobsList', jobsList);
   return (
     <Grid container spacing={gridSpacing}>
       {jobsList?.map((value) => (

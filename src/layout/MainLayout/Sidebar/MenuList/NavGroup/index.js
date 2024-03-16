@@ -14,7 +14,6 @@ import { useAppSelector } from 'store';
 const NavGroup = ({ item }) => {
   const setUserData = useAppSelector((state) => state.authorization);
   const userData = setUserData?.userData;
-  console.log("userData0", userData)
   const theme = useTheme();
   const children = item?.children?.filter((child) => child?.role?.includes(userData?.role));
   let filtchildren = { ...item, children };

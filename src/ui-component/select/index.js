@@ -5,7 +5,6 @@ import { FormControl } from '@mui/material';
 
 const SelectField = (props) => {
   const { label, control, rules, name, errors, helperText, options } = props;
-  console.log("options", errors)
   return (
     <Controller
       name={name}

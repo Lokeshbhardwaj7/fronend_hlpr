@@ -91,12 +91,8 @@ const areaNames = [
 const AccountSettings = () => {
   const theme = useTheme();
   const userData = useSelector((state) => state.authorization.userData);
-  console.log("userData", userData);
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const appDispatch = useAppDispatch();
-  // const dataLoading = useAppSelector((state) => state.dataLoading);
-  // const setUserData = useAppSelector((state) => state.authorization);
-  // const userData = setUserData?.userData?.data;
 
   //  formschema validation
   const formSchema = Yup.object().shape({
@@ -113,7 +109,7 @@ const AccountSettings = () => {
       .matches(/^[0-9]+$/, 'Only numbers are allowed'),
     duration: Yup.string().required('Please select duration'),
     week_month: Yup.string().required('Please select week/month'),
-    weekly_off:  Yup.string().required('Must Select Weekly Off'),
+    weekly_off: Yup.string().required('Must Select Weekly Off'),
     additional: Yup.string().required('Additional Details is required')
   });
 
@@ -143,9 +139,8 @@ const AccountSettings = () => {
       created_by: userData?.id
     };
     appDispatch(createJob(newData));
-    reset()
+    reset();
   };
-  console.log('errors', errors);
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>

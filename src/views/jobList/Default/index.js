@@ -26,7 +26,6 @@ const Dashboard = () => {
       setLoading(false);
     }
   }, [jobsList]);
-  console.log("jobsList", jobsList);
   return (
     <Grid container spacing={gridSpacing}>
       {jobsList?.map((value) => (

@@ -10,7 +10,6 @@ export const loginUser = createAsyncThunk('loginUser', async (_request, { dispat
     dispatch(setLoading(true));
     const { username, password, navigate } = _request;
     const response = await apiClient().post(`/sign-in`, { username, password });
-    console.log("response", response);
     dispatch(setLoading(false));
     if (response?.data && response?.data.token) {
       if (response?.data && response?.data?.role === 3) {

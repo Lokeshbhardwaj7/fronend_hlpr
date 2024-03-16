@@ -24,7 +24,6 @@ import { setApplyJob } from 'store/thunk/dashboardThunk';
 
 const PopularCard = ({ value, isLoading }) => {
   const dispatch = useDispatch()
-  console.log('valuevalue', value);
   const startDate = moment(value?.startDate).format('DD/MM/YYYY');
   const endDate = moment(value?.end_date).format('DD/MM/YYYY');
   const handleApply = ( value) => {
