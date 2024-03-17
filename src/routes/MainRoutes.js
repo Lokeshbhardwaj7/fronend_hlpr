@@ -10,7 +10,7 @@ const UserJobList = Loadable(lazy(() => import('views/jobList/Default')))
 const ListNewJob = Loadable(lazy(() => import('views/listNewJob/index')))
 const ViewListJob = Loadable(lazy(() => import('views/viewJobs/Default')))
 const ViewJobsMembers = Loadable(lazy(() => import('views/appliedMembers/Default')))
-
+const DefaultRedirect = Loadable(lazy(() => import('views/default/index')))
 import PrivateRoute from 'PrivateRoute';
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -18,14 +18,14 @@ const MainRoutes = {
   path: '/',
   element: <MainLayout />,
   children: [
-    // {
-    //   path: '/',
-    //   element: (
-    //     <PrivateRoute>
-    //       <DashboardDefault />
-    //     </PrivateRoute>
-    //   )
-    // },
+    {
+      path: '/',
+      element: (
+        <PrivateRoute>
+          <DefaultRedirect />
+        </PrivateRoute>
+      )
+    },
     {
       path: 'dashboard',
       element: (
