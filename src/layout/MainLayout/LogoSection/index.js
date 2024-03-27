@@ -7,6 +7,7 @@ import { ButtonBase, Typography } from '@mui/material';
 // project imports
 import config from 'config';
 import { MENU_OPEN } from 'store/actions';
+import Logo from 'ui-component/LogoNew.png';
 
 // ==============================|| MAIN LOGO ||============================== //
 
@@ -34,7 +35,7 @@ const LogoSection = () => {
           backgroundClip: 'text'
         }}
       >
-        HLPR
+      <img src={Logo} alt="Company Logo" style={{ width: '200px' }} />
       </Typography>
     </ButtonBase>
   );

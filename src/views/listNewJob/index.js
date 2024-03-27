@@ -19,6 +19,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { createJob } from 'store/thunk/authThunk';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const roleExperience = [
   'Domestic help',
@@ -33,7 +34,7 @@ const roleExperience = [
 ];
 
 const duration = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-const weekDays = ['Monday', 'Tuesday', 'Wednsday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const areaNames = [
   'Downtown Dubai',
   'Dubai Marina',
@@ -90,12 +91,8 @@ const areaNames = [
 const AccountSettings = () => {
   const theme = useTheme();
   const userData = useSelector((state) => state.authorization.userData);
-  console.log("userData", userData);
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const appDispatch = useAppDispatch();
-  // const dataLoading = useAppSelector((state) => state.dataLoading);
-  // const setUserData = useAppSelector((state) => state.authorization);
-  // const userData = setUserData?.userData?.data;
 
   //  formschema validation
   const formSchema = Yup.object().shape({
@@ -110,9 +107,10 @@ const AccountSettings = () => {
     pay: Yup.string()
       .required('Pay is required')
       .matches(/^[0-9]+$/, 'Only numbers are allowed'),
+    per: Yup.string().required('Please select Per'),
     duration: Yup.string().required('Please select duration'),
     week_month: Yup.string().required('Please select week/month'),
-    weekly_off:  Yup.string().required('Must Select Weekly Off'),
+    weekly_off: Yup.string().required('Must Select Weekly Off'),
     additional: Yup.string().required('Additional Details is required')
   });
 
@@ -132,19 +130,20 @@ const AccountSettings = () => {
     let newData = {
       company_name: data?.company_name,
       role: data?.role_type,
-      start_date: data?.from_date,
-      end_date: data?.to_date,
+      start_date: moment(data?.from_date).format('YYYY-MM-DD'),
+      end_date: moment(data?.to_date).format('YYYY-MM-DD'),
       location: data?.location,
       pay: data?.pay,
+      work_day: data?.per,
+      currency: 'AED',
       duration: `${data?.duration}/${data?.week_month}`,
       additional_details: data?.additional,
       weekly: data?.weekly_off,
       created_by: userData?.id
     };
     appDispatch(createJob(newData));
-    reset()
+    reset();
   };
-  console.log('errors', errors);
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -154,7 +153,7 @@ const AccountSettings = () => {
               <Grid sx={{ mt: 2 }} container spacing={matchDownSM ? 0 : 2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Compnay Name"
+                    label="Company Name"
                     control={control}
                     rules={{ required: true }}
                     helperText={errors.company_name?.message}
@@ -239,17 +238,59 @@ const AccountSettings = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
-                    label="Pay"
-                    type="number"
-                    control={control}
-                    rules={{ required: true }}
-                    helperText={errors.pay?.message}
-                    name={'pay'}
-                    errors={errors}
-                    fullWidth
-                    {...register('pay', { value: '' })}
-                  />
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        label="Pay"
+                        type="number"
+                        control={control}
+                        rules={{ required: true }}
+                        helperText={errors.pay?.message}
+                        name={'pay'}
+                        errors={errors}
+                        fullWidth
+                        {...register('pay', { value: '' })}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Controller
+                        name={'per'}
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                          <FormControl fullWidth sx={{ minWidth: 110 }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">Per</InputLabel>
+                            <Select
+                              label={'per'}
+                              value={field.value}
+                              onChange={field.onChange}
+                              error={errors?.per}
+                              helperText={
+                                errors && errors?.per
+                                  ? errors?.per?.type === 'required'
+                                    ? `Please select valid per`
+                                    : errors.per?.message
+                                  : errors.per?.message
+                              }
+                            >
+                              <MenuItem value={'Day'}>Day</MenuItem>
+                              <MenuItem value={'Week'}>Week</MenuItem>
+                              <MenuItem value={'Month'}>Month</MenuItem>
+                              <MenuItem value={'Year'}>Year</MenuItem>
+                            </Select>
+                            <FormHelperText sx={{ color: 'red' }}>
+                              {errors && errors?.per
+                                ? errors?.per?.type === 'required'
+                                  ? `Please select valid per`
+                                  : errors.per?.message
+                                : errors.per?.message}
+                            </FormHelperText>
+                          </FormControl>
+                        )}
+                        {...register('per', { value: '' })}
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <Grid container spacing={2}>

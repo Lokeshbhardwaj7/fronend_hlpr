@@ -30,12 +30,11 @@ import { useNavigate } from 'react-router';
 const PopularCard = ({ value, isLoading }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log('valuevalue', value);
   const startDate = moment(value?.startDate).format('DD/MM/YYYY');
   const endDate = moment(value?.end_date).format('DD/MM/YYYY');
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteData, setDeleteData] = useState({});
-
+  console.log("valuevalue", value)
   const toggleDeleteModal = (data) => {
     setOpenDelete(!openDelete);
     setDeleteData(data || {});
@@ -147,7 +146,7 @@ const PopularCard = ({ value, isLoading }) => {
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.pay} / hour
+                              {value?.pay} {value?.currency}/{value?.work_day}
                             </Typography>
                           </Grid>
                         </Grid>

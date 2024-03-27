@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ppc from './ppc';
+// import ppc from './ppc';
 // import sales from './sales';
 // import pnl from './pnl';
 import externalMenu from './externalMenu';
@@ -7,15 +7,13 @@ import externalMenu from './externalMenu';
 // import keywordTrackingMenu from './keywordTrackingMenu';
 
 const getMenuItems = () => {
-  const userType = JSON.parse(localStorage.getItem('user_data'));
   const menuItems = {
-    items: [ppc, externalMenu]
+    items: [externalMenu]
   };
-  console.log("theming", userType)
   // if (userType?.role == 2) {
-    // Filter out Pages, Other, and Utilities groups that should not be shown to usertype 1
-    // menuItems.items = menuItems.items.filter((item) => item?.title !== 'Jobs');
-  // } 
+  // Filter out Pages, Other, and Utilities groups that should not be shown to usertype 1
+  // menuItems.items = menuItems.items.filter((item) => item?.title !== 'Jobs');
+  // }
   // else {
   //   menuItems.items = menuItems.items.filter((item) => item?.title !== 'External');
   // }

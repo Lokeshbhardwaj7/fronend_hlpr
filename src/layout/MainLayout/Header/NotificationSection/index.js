@@ -26,8 +26,6 @@ import Transitions from 'ui-component/extended/Transitions';
 import { IconHourglassLow, IconCalendarTime } from '@tabler/icons';
 import moment from 'moment';
 import { useAppSelector } from 'store';
-import { getUserDetails } from 'store/thunk/authThunk';
-import { useAppDispatch } from 'store';
 
 // ==============================|| NOTIFICATION ||============================== //
 
@@ -39,10 +37,8 @@ const NotificationSection = () => {
   const [open, setOpen] = useState(false);
 
   const setUserData = useAppSelector((state) => state.authorization);
-  const userData = setUserData?.userData?.data;
 
   const planDetails = setUserData?.userDetails?.data?.stripeSubscriptions;
-  const dispatch = useAppDispatch();
 
   const unixPeriod = moment.unix(planDetails?.trial_end);
 
@@ -63,13 +59,6 @@ const NotificationSection = () => {
   };
 
   const prevOpen = useRef(open);
-
-  useEffect(() => {
-    let request = {
-      id: userData.id
-    };
-    dispatch(getUserDetails(request));
-  }, []);
 
   useEffect(() => {
     if (prevOpen.current === true && open === false) {

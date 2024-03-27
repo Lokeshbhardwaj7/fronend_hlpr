@@ -4,12 +4,11 @@ import { useAppSelector } from 'store';
 function PublicRoute(props) {
   const { children } = props;
   const userAuthData = useAppSelector((state) => state.authorization);
-
   return userAuthData?.userData ? (
-    userAuthData?.userData?.data?.user_type == 1 ? (
-      <Navigate to="/sellers" />
+    userAuthData?.userData?.role == 3 ? (
+      <Navigate to="/jobs" />
     ) : (
-      <Navigate to="/dashboard" />
+      <Navigate to="/job-listing" />
     )
   ) : (
     children

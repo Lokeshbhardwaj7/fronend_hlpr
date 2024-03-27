@@ -46,27 +46,14 @@ const ProfileSection = () => {
   const [open, setOpen] = useState(false);
   const [greeting, setGreeting] = useState('');
   const [uploadedPhoto, setUploadedPhoto] = useState();
+  console.log("userData", userData)
+
   useEffect(() => {
-    // Function to get the current time and set the greeting based on the time of day
-    const updateGreeting = () => {
-      const currentHour = new Date().getHours();
-
-      if (currentHour >= 5 && currentHour < 12) {
-        setGreeting('Good Morning');
-      } else if (currentHour >= 12 && currentHour < 17) {
-        setGreeting('Good Afternoon');
-      } else if (currentHour >= 17 && currentHour < 21) {
-        setGreeting('Good Evening');
-      } else {
-        setGreeting('Good Night');
-      }
-    };
-    // Update the greeting initially and then every minute to account for time changes
-    updateGreeting();
-    const intervalId = setInterval(updateGreeting, 60000);
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
+    if(userData?.name != null){
+      setGreeting(`Hi, ${userData?.name}`)
+    }else {
+      setGreeting(`Hi, ${userData?.company_name}`)
+    }
   }, []);
   /**
    * anchorRef is used on different componets and specifying one type leads to other components throwing an error
@@ -82,21 +69,8 @@ const ProfileSection = () => {
   }, [location.pathname]);
 
   const handleLogout = async () => {
-    // appDispatch(logout());
     appDispatch(setUserData(null));
-
     localStorage.removeItem('user_data');
-    localStorage.removeItem('sortActions');
-    localStorage.removeItem('visibleColumns');
-    localStorage.removeItem('selectedDates');
-    if ('caches' in window) {
-      try {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((name) => caches.delete(name)));
-      } catch (error) {
-        console.error('Error clearing cache:', error);
-      }
-    }
     navigate('/login');
   };
 
@@ -158,7 +132,7 @@ const ProfileSection = () => {
         }}
         icon={
           <Avatar
-            alt={userData?.data?.first_name}
+            alt={userData?.username}
             src={uploadedPhoto || '/images/src/1.jpg'}
             sx={{
               ...theme.typography.mediumAvatar,
@@ -205,7 +179,7 @@ const ProfileSection = () => {
                   <Box sx={{ p: 2 }}>
                     <Stack>
                       <Stack direction="row" spacing={0.5} alignItems="center">
-                        <Typography variant="h4">{greeting},</Typography>
+                        <Typography variant="h4">{greeting}</Typography>
                         <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
                           {/* Johnson Dew */}
                           {userData?.data?.first_name} {userData?.data?.last_name}

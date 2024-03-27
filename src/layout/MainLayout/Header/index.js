@@ -13,8 +13,7 @@ import NotificationSection from './NotificationSection';
 import { IconMenu2 } from '@tabler/icons';
 import { useLocation } from 'react-router';
 import { useSelector } from 'react-redux';
-import DashboardStoreList from './StoreListSelect/DashboardStoreList';
-import CustomDatePickerNEW from './DatePicker/DatePickerNew';
+import SearchSection from './SearchSection';
 
 // ==============================|| MAIN NAVBAR / HEADER ||============================== //
 
@@ -22,6 +21,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
   const userData = useSelector((state) => state.authorization.userData);
   const location = useLocation();
   const theme = useTheme();
+
   return (
     <>
       {/* logo & toggler button */}
@@ -59,58 +59,11 @@ const Header = ({ handleLeftDrawerToggle }) => {
         </Avatar>
       </ButtonBase>
       {/* header search */}
+      {userData?.role && userData?.role ==3 && location?.pathname == '/jobs' ? <SearchSection /> : ''}
       <Box sx={{ flexGrow: 0.1 }} />
-      {(userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/') ||
-      (userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/dashboard') ||
-      location?.pathname == '/sales-dashboard' ||
-      location?.pathname == '/sales-item' ||
-      location?.pathname == '/sales-dashboard-v2' ||
-      location?.pathname == '/pnl-dashboard' ||
-      location?.pathname == '/ppc-item' ||
-      location?.pathname == '/ppc-category' ||
-      location?.pathname == '/pnl-item' ||
-      location?.pathname == '/sales-category' ||
-      location?.pathname == '/pnl-by-category' ||
-      location?.pathname == '/group-by-pnl' ||
-      location?.pathname == '/group-by-ppc' ||
-      location?.pathname == '/group-by-sales' ||
-      location?.pathname == '/ppc-by-parent' ||
-      location?.pathname == '/sales-by-parent' ||
-      location?.pathname == '/keyword-tracking' ||
-      location?.pathname == '/parent-sku' ? (
-        <CustomDatePickerNEW />
-      ) : (
-        ''
-      )}
       <Box sx={{ flexGrow: 1 }} />
       <Box sx={{ flexGrow: 1 }} />
 
-      {/* notification & profile */}
-      {(userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/') ||
-      (userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/dashboard') ||
-      location?.pathname == '/sales-dashboard' ||
-      location?.pathname == '/sales-item' ||
-      location?.pathname == '/sales-dashboard-v2' ||
-      location?.pathname == '/pnl-dashboard' ||
-      location?.pathname == '/cogs-list' ||
-      location?.pathname == '/ppc-item' ||
-      location?.pathname == '/ppc-category' ||
-      location?.pathname == '/pnl-item' ||
-      location?.pathname == '/sales-category' ||
-      location?.pathname == '/pnl-by-category' ||
-      location?.pathname == '/group-by-pnl' ||
-      location?.pathname == '/group-by-ppc' ||
-      location?.pathname == '/group-by-sales' ||
-      location?.pathname == '/parent-sku' ||
-      location?.pathname == '/pnl-tags' ||
-      location?.pathname == '/ppc-by-parent' ||
-      location?.pathname == '/sales-by-parent' ||
-      location?.pathname == '/keyword-tracking' ||
-      location?.pathname == '/create-tag' ? (
-        <DashboardStoreList />
-      ) : (
-        ''
-      )}
       <Box sx={{ flexGrow: 0.01 }} />
       {(userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/') ||
       (userData?.data?.user_type && userData?.data?.user_type !== 1 && location?.pathname == '/dashboard') ||

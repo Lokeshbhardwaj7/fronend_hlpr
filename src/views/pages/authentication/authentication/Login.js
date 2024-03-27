@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import AuthWrapper1 from '../AuthWrapper1';
 import AuthCardWrapper from '../AuthCardWrapper';
 import AuthLogin from '../auth-forms/AuthLogin';
+import Logo from 'ui-component/LogoNew.png';
 
 const Login = () => {
   const theme = useTheme();
@@ -32,7 +33,8 @@ const Login = () => {
                           backgroundClip: 'text'
                         }}
                       >
-                        HLPR
+                              <img src={Logo} alt="Company Logo" style={{ width: '200px' }} />
+
                       </Typography>
                     </Link>
                   </Grid>

@@ -310,7 +310,22 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
   try {
     dispatch(setLoading(true));
     const response = await apiClient().get(`jobs/listing`);
-    console.log("response", response);
+    dispatch(setLoading(false));
+    if (response?.data) {
+      dispatch(setDashboardJobList(response?.data?.jobs));
+    } else {
+      dispatch(notificationFail(Messages.ERROR.DEFAULT));
+    }
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(notificationFail(Messages.ERROR.DEFAULT));
+  }
+});
+
+export const getSearchJob = createAsyncThunk('getSearchJob', async (_request, { dispatch }) => {
+  try {
+    dispatch(setLoading(true));
+    const response = await apiClient().post(`search-job`, _request);
     dispatch(setLoading(false));
     if (response?.data) {
       dispatch(setDashboardJobList(response?.data?.jobs));
@@ -324,13 +339,12 @@ export const getJobListing = createAsyncThunk('getJobListing', async (_request, 
 });
 
 export const setApplyJob = createAsyncThunk('setApplyJob', async (_request, { dispatch }) => {
-  console.log("_request_request", _request);
   try {
     dispatch(setLoading(true));
     const response = await apiClient().put(`apply/job/${_request?.jobId}`);
     dispatch(setLoading(false));
     if (response?.data) {
-      dispatch(notificationSuccess(response?.data?.message));
+      dispatch(notificationSuccess('The company has recieved your application. You will be contacted on whatsapp by them.'));
       dispatch(getJobListing())
     } else {
       dispatch(notificationFail(Messages.ERROR.DEFAULT));
@@ -378,12 +392,10 @@ export const ViewJobApplied = createAsyncThunk('ViewJobApplied', async (_request
 
 export const deleteJob = createAsyncThunk('deleteJob', async (_request, { dispatch }) => {
 
-  console.log("neww_request", _request);
   try {
     dispatch(setLoading(true));
     const response = await apiClient().delete(`job/delete/${_request.id}`);
     dispatch(setLoading(false));
-    console.log("mmmmmmmmm", response);
     if (response?.data) {
       dispatch(notificationSuccess(response?.data?.message));
       dispatch(viewJobList());

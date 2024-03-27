@@ -7,7 +7,6 @@ import { useAppSelector } from 'store';
 function PrivateRoute(props) {
   const urlParams = new URLSearchParams(window.location.search);
   const setUserData = useAppSelector((state) => state.authorization);
-  console.log("setUserData", setUserData)
   const userData = setUserData?.userData;
   const myParam = urlParams.get('success');
   // const dispatch = useAppDispatch();

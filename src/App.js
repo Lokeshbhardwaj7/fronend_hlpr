@@ -15,7 +15,6 @@ import { useAppSelector, useAppDispatch } from 'store';
 
 import { notificationClear } from './store/slices/notificationSlice';
 import { useEffect, useRef } from 'react';
-import { logout } from 'store/thunk/authThunk';
 import { setUserData } from 'store/slices/authSlice';
 import { useNavigate } from 'react-router';
 
@@ -34,7 +33,6 @@ const App = () => {
   const localUser = localStorage.getItem('user_data');
 
   const handleLogout = async () => {
-    appDispatch(logout());
     appDispatch(setUserData(null));
 
     localStorage.removeItem('user_data');

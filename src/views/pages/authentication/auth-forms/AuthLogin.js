@@ -97,7 +97,7 @@ const FirebaseLogin = ({ ...others }) => {
         <Grid container direction={matchDownSM ? 'column-reverse' : 'row'} alignItems="center" justifyContent="center">
           <Grid item>
             <Stack alignItems="center" justifyContent="center" spacing={1}>
-              <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
+              <Typography color={theme.palette.secondary.main} gutterBottom variant={matchDownSM ? 'h4' : 'h3'}>
                 Sign In
               </Typography>
               <Typography variant="caption" textAlign="center" sx={{ margin: '0px 15px 5px 15px !important' }}></Typography>

@@ -15,7 +15,6 @@ import { viewJobList } from 'store/thunk/dashboardThunk';
 const Dashboard = () => {
   const { jobsList } = useAppSelector((state) => state.dashboardSlice);
   const userData = useSelector((state) => state.authorization.userData);
-  console.log("userData", userData);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(true);
 
@@ -31,7 +30,6 @@ const Dashboard = () => {
       setLoading(false);
     }
   }, [jobsList]);
-  console.log("jobsList", jobsList);
   return (
     <Grid container spacing={gridSpacing}>
       {jobsList?.map((value) => (
