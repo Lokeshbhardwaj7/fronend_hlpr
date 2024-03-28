@@ -25,7 +25,7 @@ export default function ProductHero() {
         marked="center"
         sx={{ mt: 16, textTransform: 'none', fontFamily: 'cursive' }}
       >
-        Search, Find and apply!
+        Search, Find and Apply!
       </Typography>
       <Typography color="inherit" align="center" variant="h5" sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}>
         Welcome to HLPR! <br /> This is your one-stop shop for temporary employment! Click the search button below to see available jobs!

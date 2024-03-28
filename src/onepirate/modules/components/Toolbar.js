@@ -2,9 +2,9 @@ import { styled } from '@mui/material/styles';
 import MuiToolbar from '@mui/material/Toolbar';
 
 const Toolbar = styled(MuiToolbar)(({ theme }) => ({
-  height: 64,
+  height: 70,
   [theme.breakpoints.up('sm')]: {
-    height: 70,
+    height: 80,
   },
 }));
 

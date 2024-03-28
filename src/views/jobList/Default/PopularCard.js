@@ -124,7 +124,7 @@ const PopularCard = ({ value, isLoading }) => {
                         <Grid container alignItems="center" justifyContent="space-between">
                           <Grid item>
                             <Typography variant="subtitle1" color="grey">
-                              {value?.pay} / hour
+                              {value?.pay} {value?.currency} / {value?.work_day}
                             </Typography>
                           </Grid>
                         </Grid>

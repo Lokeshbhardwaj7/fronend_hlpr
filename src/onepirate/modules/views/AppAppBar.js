@@ -36,7 +36,7 @@ function AppAppBar() {
               backgroundClip: 'text'
             }}
           > */}
-            <img src={Logo} alt="Company Logo" style={{ width: '200px' }} />
+            <img src={Logo} alt="Company Logo" style={{ width: '300px' }} />
           {/* </Typography> */}
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
             <Link color="inherit" variant="h6" underline="none" href="/login" sx={rightLink}>
