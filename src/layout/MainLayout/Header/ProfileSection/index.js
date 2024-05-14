@@ -31,7 +31,6 @@ import Transitions from 'ui-component/extended/Transitions';
 // assets
 import { IconLogout, IconSettings } from '@tabler/icons';
 import { useAppDispatch } from 'store';
-// import { logout } from 'store/thunk/authThunk';
 
 // ==============================|| PROFILE MENU ||============================== //
 
@@ -46,25 +45,24 @@ const ProfileSection = () => {
   const [open, setOpen] = useState(false);
   const [greeting, setGreeting] = useState('');
   const [uploadedPhoto, setUploadedPhoto] = useState();
+  
   console.log("userData", userData)
 
   useEffect(() => {
     if(userData?.name != null){
-      setGreeting(`Hi, ${userData?.name}`)
+      setGreeting(`Hi, ${userData?.name} ${userData?.lastName}`)
     }else {
       setGreeting(`Hi, ${userData?.company_name}`)
     }
   }, []);
-  /**
-   * anchorRef is used on different componets and specifying one type leads to other components throwing an error
-   * */
+
   const anchorRef = useRef(null);
 
   useEffect(() => {
     if (location.pathname === '/account-settings') {
-      setSelectedIndex(0); // Set to 0 when the route is '/account-settings'
+      setSelectedIndex(0);
     } else {
-      setSelectedIndex(-1); // Set to -1 for other routes
+      setSelectedIndex(-1);
     }
   }, [location.pathname]);
 
@@ -80,15 +78,6 @@ const ProfileSection = () => {
     }
     setOpen(false);
   };
-
-  // const handleListItemClick = (event, index, route = '') => {
-  //   setSelectedIndex(index);
-  //   handleClose(event);
-
-  //   if (route && route !== '') {
-  //     navigate(route);
-  //   }
-  // };
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -107,6 +96,15 @@ const ProfileSection = () => {
   useEffect(() => {
     setUploadedPhoto(`${userData?.data?.profile}`);
   }, [userData]);
+
+  const handleListItemClick = (event, index, route = '') => {
+    setSelectedIndex(index);
+    handleClose(event);
+
+    if (route && route !== '') {
+      navigate(route); // Redirect to the specified route
+    }
+  };
 
   return (
     <>
@@ -181,7 +179,6 @@ const ProfileSection = () => {
                       <Stack direction="row" spacing={0.5} alignItems="center">
                         <Typography variant="h4">{greeting}</Typography>
                         <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
-                          {/* Johnson Dew */}
                           {userData?.data?.first_name} {userData?.data?.last_name}
                         </Typography>
                       </Stack>
@@ -209,12 +206,12 @@ const ProfileSection = () => {
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}
                           selected={selectedIndex === 0}
-                          onClick={() => navigate('#')}
+                          onClick={(event) => handleListItemClick(event, 0, '/account-settings')} // Specify the route here
                         >
                           <ListItemIcon>
                             <IconSettings stroke={1.5} size="1.3rem" />
                           </ListItemIcon>
-                          <ListItemText primary={<Typography variant="body2">Account Settings</Typography>} />
+                          <ListItemText primary={<Typography variant="body2">Account Info</Typography>} />
                         </ListItemButton>
                         <ListItemButton
                           sx={{ borderRadius: `${customization.borderRadius}px` }}

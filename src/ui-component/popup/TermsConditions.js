@@ -25,13 +25,13 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
       >
         <DialogTitle id="alert-dialog-title" display="flex" justifyContent="center">
           <Typography variant="subtitle1" className="text-center">
-            Metrics Terms of Service
+            hlpr Terms of Service
           </Typography>
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <Typography variant="p">
-              Welcome to Metrics, a service provided by Sellcord LLC. By using the Metrics website and its services, you agree to
+              Welcome to hlpr, a service provided by Sellcord LLC. By using the hlpr website and its services, you agree to
               be bound by the following Terms of Service. Please read these terms carefully before using the site.
             </Typography>
             <ol>
@@ -41,22 +41,22 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                 </Typography>
                 <ul>
                   <li>
-                    <Typography variant="p">Metrics refers to the website and its services provided by Sellcord LLC.</Typography>
+                    <Typography variant="p">hlpr refers to the website and its services provided by Sellcord LLC.</Typography>
                   </li>
                   <li>
-                    <Typography variant="p">Sellcord LLC refers to the company operating Metrics.</Typography>
+                    <Typography variant="p">Sellcord LLC refers to the company operating hlpr.</Typography>
                   </li>
                   <li>
-                    <Typography variant="p">Users refers to individuals or entities accessing and using Metrics.</Typography>
+                    <Typography variant="p">Users refers to individuals or entities accessing and using hlpr.</Typography>
                   </li>
                   <li>
                     <Typography variant="p">
-                      Sellers refers to users utilizing Metrics to track sales and performance on the Walmart Marketplace.
+                      Sellers refers to users utilizing hlpr to track sales and performance on the Walmart Marketplace.
                     </Typography>
                   </li>
                   <li>
                     <Typography variant="p">
-                      Brands refers to users leveraging Metrics for analysis and optimization of their presence on the Walmart
+                      Brands refers to users leveraging hlpr for analysis and optimization of their presence on the Walmart
                       Marketplace.
                     </Typography>
                   </li>
@@ -72,7 +72,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Service Description
                 </Typography>
                 <Typography variant="p">
-                  Metrics is a platform that offers tools and services to sellers and brands on the Walmart Marketplace. Our
+                  hlpr is a platform that offers tools and services to sellers and brands on the Walmart Marketplace. Our
                   services include profit tracking, performance analytics, and other valuable tools designed to optimize your
                   experience on the Walmart Marketplace.
                 </Typography>
@@ -82,9 +82,9 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   User Accounts and Responsibilities
                 </Typography>
                 <Typography variant="p">
-                  To use Metrics, users must create an account. Users are responsible for maintaining the confidentiality of their
+                  To use hlpr, users must create an account. Users are responsible for maintaining the confidentiality of their
                   account credentials and are liable for all activities conducted under their accounts. Any unauthorized use or
-                  security breach must be reported to Metrics immediately.
+                  security breach must be reported to hlpr immediately.
                 </Typography>
               </li>
               <li>
@@ -92,7 +92,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Prohibited Activities
                 </Typography>
                 <Typography variant="p">
-                  Users must not engage in any of the following prohibited activities on Metrics:
+                  Users must not engage in any of the following prohibited activities on hlpr:
                 </Typography>
                 <ul>
                   <li>
@@ -116,7 +116,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   </li>
                   <li>
                     <Typography variant="p">
-                      Engaging in any activity that disrupts or interferes with the proper functioning of Metrics.
+                      Engaging in any activity that disrupts or interferes with the proper functioning of hlpr.
                     </Typography>
                   </li>
                 </ul>
@@ -126,7 +126,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Intellectual Property
                 </Typography>
                 <Typography variant="p">
-                  The content and intellectual property on Metrics, including trademarks, logos, and service marks, are the
+                  The content and intellectual property on hlpr, including trademarks, logos, and service marks, are the
                   property of Sellcord LLC. Users are granted a non-exclusive, non-transferable license to use the services,
                   subject to compliance with these Terms of Service.
                 </Typography>
@@ -136,7 +136,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Data Privacy and Security
                 </Typography>
                 <Typography variant="p">
-                  We value your privacy. Our data practices are outlined in our Privacy Policy, which can be found on the Metrics
+                  We value your privacy. Our data practices are outlined in our Privacy Policy, which can be found on the hlpr
                   website. By using the services, you consent to the collection, processing, and storage of your data as described
                   in the Privacy Policy.
                 </Typography>
@@ -146,7 +146,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Payment and Refunds
                 </Typography>
                 <Typography variant="p">
-                  Certain services on Metrics may require payment. Payment terms will be specified during the checkout process.
+                  Certain services on hlpr may require payment. Payment terms will be specified during the checkout process.
                   Refunds, if applicable, will be subject to the Refund Policy posted on the website.
                 </Typography>
               </li>
@@ -155,7 +155,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Disclaimer of Warranty
                 </Typography>
                 <Typography variant="p">
-                  Metrics and Sellcord LLC provide the services on an as-is basis. We do not make any warranties or guarantees
+                  hlpr and Sellcord LLC provide the services on an as-is basis. We do not make any warranties or guarantees
                   regarding the accuracy, reliability, or suitability of the services for any particular purpose.
                 </Typography>
               </li>
@@ -164,7 +164,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Limitation of Liability
                 </Typography>
                 <Typography variant="p">
-                  In no event shall Sellcord LLC or Metrics be liable for any direct, indirect, incidental, consequential, or
+                  In no event shall Sellcord LLC or hlpr be liable for any direct, indirect, incidental, consequential, or
                   special damages arising out of or in any way connected with the use of the services, even if advised of the
                   possibility of such damages.
                 </Typography>
@@ -174,7 +174,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Indemnification
                 </Typography>
                 <Typography variant="p">
-                  Users agree to indemnify, defend, and hold harmless Sellcord LLC and Metrics from any claims, losses,
+                  Users agree to indemnify, defend, and hold harmless Sellcord LLC and hlpr from any claims, losses,
                   liabilities, expenses, or damages arising from their use of the services or violation of these Terms of Service.
                 </Typography>
               </li>
@@ -195,7 +195,7 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                 <Typography variant="p">
                   Sellcord LLC may, at its sole discretion, terminate or suspend user accounts for any reason, including but not
                   limited to violations of these Terms of Service. Users may also request account termination by contacting
-                  Metrics support.
+                  hlpr support.
                 </Typography>
               </li>
               <li>
@@ -213,8 +213,8 @@ const TermsConditions = ({ open, setOpen, setChecked }) => {
                   Contact Information
                 </Typography>
                 <Typography variant="p">
-                  If you have any questions or concerns regarding these Terms of Service or Metrics services, you can contact us
-                  at info@Metrics.com.
+                  If you have any questions or concerns regarding these Terms of Service or hlpr services, you can contact us
+                  at info@hlpr.com.
                 </Typography>
               </li>
             </ol>

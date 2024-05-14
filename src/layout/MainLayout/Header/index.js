@@ -48,7 +48,7 @@ const Header = ({ handleLeftDrawerToggle }) => {
             background: theme.palette.secondary.light,
             color: theme.palette.secondary.dark,
             '&:hover': {
-              background: theme.palette.secondary.dark,
+              background: theme.palette.secondary.light,
               color: theme.palette.secondary.light
             }
           }}

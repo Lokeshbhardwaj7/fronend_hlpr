@@ -18,7 +18,7 @@ import {
   setProductVariant,
   setSalesByBrandData,
   setSalesDashboardData,
-  setSalesMetricsChart,
+  setSaleshlprChart,
   setSalesVDashboardData,
   setStoreIdChart,
   setTagId,
@@ -471,10 +471,10 @@ export const menuFilterTypeChart = createAsyncThunk('menuFilterType', async (_re
   }
 });
 
-export const salesMetricsMenu = createAsyncThunk('salesMetricsMenu', async (_request, { dispatch }) => {
+export const saleshlprMenu = createAsyncThunk('saleshlprMenu', async (_request, { dispatch }) => {
   try {
     dispatch(setLoading(true));
-    dispatch(setSalesMetricsChart(_request));
+    dispatch(setSaleshlprChart(_request));
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setLoading(false));

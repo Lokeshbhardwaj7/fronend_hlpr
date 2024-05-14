@@ -2,8 +2,8 @@ const MESSAGES = {
   ERROR: {
     DEFAULT: 'Something went wrong',
     NO_DATA_FOUND: 'No data found',
-    LOGIN: 'Something went wrong',
-    REGISTER: 'Something went wrong',
+    LOGIN: 'Invalid Username or Password',
+    REGISTER: 'Username or Email already in use',
     RESETFAIL: 'Email not found',
     SELLERCONNECTEDFAIL: 'please check your credentials, we are not able to connect.'
   },

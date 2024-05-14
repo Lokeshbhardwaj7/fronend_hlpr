@@ -5,12 +5,12 @@ import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
 const UserJobList = Loadable(lazy(() => import('views/jobList/Default')))
 const ListNewJob = Loadable(lazy(() => import('views/listNewJob/index')))
 const ViewListJob = Loadable(lazy(() => import('views/viewJobs/Default')))
 const ViewJobsMembers = Loadable(lazy(() => import('views/appliedMembers/Default')))
 const DefaultRedirect = Loadable(lazy(() => import('views/default/index')))
+const AccountSettings = Loadable(lazy(() => import('layout/MainLayout/Header/ProfileSection/accountSetting')));
 import PrivateRoute from 'PrivateRoute';
 
 // ==============================|| MAIN ROUTING ||============================== //
@@ -23,14 +23,6 @@ const MainRoutes = {
       element: (
         <PrivateRoute>
           <DefaultRedirect />
-        </PrivateRoute>
-      )
-    },
-    {
-      path: 'dashboard',
-      element: (
-        <PrivateRoute>
-          <DashboardDefault />
         </PrivateRoute>
       )
     },
@@ -67,10 +59,18 @@ const MainRoutes = {
       )
     },
     {
+      path: 'account-settings',
+      element: (
+        <PrivateRoute>
+          <AccountSettings />
+        </PrivateRoute>
+      )
+    },
+    {
       path: '*',
       element: (
         <PrivateRoute>
-          <DashboardDefault />
+          <DefaultRedirect />
         </PrivateRoute>
       )
     }

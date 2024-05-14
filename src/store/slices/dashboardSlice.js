@@ -9,7 +9,7 @@ const initialState = {
   date: [],
   menuFilterType: [],
   menuFilterTypeChart: [],
-  salesMetrics: [],
+  saleshlpr: [],
   newSalesMatrics: [],
   ppcChart: [],
   salesChartV: [],
@@ -153,9 +153,9 @@ const dashboardSlice = createSlice({
       ...state,
       menuFilterTypeChart: action.payload
     }),
-    setSalesMetricsChart: (state, action) => ({
+    setSaleshlprChart: (state, action) => ({
       ...state,
-      salesMetrics: action.payload
+      saleshlpr: action.payload
     }),
     setNewSalesMatrics: (state, action) => ({
       ...state,
@@ -225,7 +225,7 @@ export const {
   setPnlByItemExport,
   setmenuFilterType,
   setmenuFilterTypeChart,
-  setSalesMetricsChart,
+  setSaleshlprChart,
   setNewSalesMatrics,
   setStoreIdChart,
   setTagId,

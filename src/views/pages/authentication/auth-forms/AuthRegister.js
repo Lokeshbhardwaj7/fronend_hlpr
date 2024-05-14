@@ -28,10 +28,11 @@ import { Formik } from 'formik';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
 import AnimateButton from 'ui-component/extended/AnimateButton';
+import { useDropzone } from 'react-dropzone';
 
 import { registerEmployer, registerUser } from '../../../../store/thunk/authThunk';
 import { useAppDispatch, useAppSelector } from '../../../../store';
@@ -50,7 +51,8 @@ const FirebaseRegister = ({ ...others }) => {
   // const [showTerms, setShowTerms] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  const [selectedPhoto, setSelectedPhoto] = useState();
+  console.log('selectedPhoto', selectedPhoto);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -63,6 +65,22 @@ const FirebaseRegister = ({ ...others }) => {
     event.preventDefault();
   };
 
+  const { getRootProps } = useDropzone({
+    maxFiles: 1,
+    multiple: false,
+    maxSize: 800000,
+    accept: ['application/pdf'],
+    onDrop: (acceptedFiles) => {
+      console.log('acceptedFilesacceptedFiles', acceptedFiles);
+      setSelectedPhoto(acceptedFiles[0]);
+    },
+    onDropRejected: () => {
+      toast.error('You can only upload 1 file & maximum size of 2 MB.', {
+        duration: 2000
+      });
+    }
+  });
+  console.log('selectedPhoto', selectedPhoto);
   const roleExperience = [
     ' Domestic help',
     'Security guard',
@@ -154,6 +172,7 @@ const FirebaseRegister = ({ ...others }) => {
           email: '',
           phone_number: '',
           name: '',
+          lastName: '',
           username: '',
           password: '',
           gender: '',
@@ -163,7 +182,8 @@ const FirebaseRegister = ({ ...others }) => {
           submit: null,
           expected_salary: '',
           cpassword: '',
-          nationality: ''
+          nationality: '',
+          resume: ''
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string()
@@ -171,7 +191,17 @@ const FirebaseRegister = ({ ...others }) => {
             .when('role', {
               is: 'Employee',
               then: Yup.string()
-                .required('Name is required')
+                .required('First Name is required')
+                .matches(/^(\S+$)/, '* This field cannot contain blank spaces')
+                .matches(/^[^\d]+$/, 'Numbers are not allowed'),
+              otherwise: Yup.string()
+            }),
+          lastName: Yup.string()
+            .max(50)
+            .when('role', {
+              is: 'Employee',
+              then: Yup.string()
+                .required('Last Name is required')
                 .matches(/^(\S+$)/, '* This field cannot contain blank spaces')
                 .matches(/^[^\d]+$/, 'Numbers are not allowed'),
               otherwise: Yup.string()
@@ -210,9 +240,10 @@ const FirebaseRegister = ({ ...others }) => {
             otherwise: Yup.string()
           }),
           role: Yup.string().required('Role is required'),
+
           phone_number: Yup.string()
             .required('Phone number is required')
-            .matches(/^\d{8}$/, 'Phone number is not valid(8 digits)'),
+            .matches(/^\d{9}$/, 'Phone number is not valid(9 digits)'),
 
           expected_salary: Yup.string().when('role', {
             is: 'Employee',
@@ -238,6 +269,7 @@ const FirebaseRegister = ({ ...others }) => {
 
               const {
                 name,
+                lastName,
                 username,
                 phone_number,
                 nationality,
@@ -251,24 +283,34 @@ const FirebaseRegister = ({ ...others }) => {
                 password,
                 cpassword,
                 company_name
-              } = values; // Include area in values
+              } = values;
 
               if (values.role == 'Employee') {
+                const formData = new FormData();
+
+                // Append all fields to formData
+                formData.append('name', name);
+                formData.append('lastName', lastName);
+                formData.append('username', username);
+                formData.append('password', password);
+                formData.append('cpassword', cpassword);
+                formData.append('company_name', company_name);
+                formData.append('phone_number', '+971' + phone_number);
+                formData.append('nationality', nationality);
+                formData.append('gender', gender);
+                formData.append('role_exp', role_exp);
+                formData.append('expected_salary', expected_salary);
+                formData.append('registration_number', registration_number);
+                formData.append('role', role);
+                formData.append('email', email);
+                formData.append('area', area);
+
+                // Append the resume file
+                formData.append('resume', selectedPhoto);
+
+                // Dispatch the form data
                 const requestData = {
-                  name,
-                  username,
-                  password,
-                  cpassword,
-                  company_name,
-                  phone_number: '+971' + phone_number,
-                  nationality,
-                  gender,
-                  role_exp,
-                  expected_salary,
-                  registration_number,
-                  role,
-                  email,
-                  area,
+                  formData, // Include formData directly in requestData
                   callbackFunc: resetForm,
                   navigate: navigate
                 };
@@ -276,6 +318,7 @@ const FirebaseRegister = ({ ...others }) => {
               } else if (values.role == 'Employer') {
                 const requestData = {
                   username,
+                  email,
                   password,
                   cpassword,
                   company_name,
@@ -309,9 +352,9 @@ const FirebaseRegister = ({ ...others }) => {
                 value={values.role}
                 onChange={(e) => {
                   handleChange(e);
-                  setFieldTouched('role', true, false); // Update touched state for role
+                  setFieldTouched('role', true, false);
                 }}
-                onBlur={() => setFieldTouched('role', true)} // Update touched state for role on blur
+                onBlur={() => setFieldTouched('role', true)}
                 label="Role"
                 sx={{ ...theme.typography.customInput }}
               >
@@ -326,11 +369,6 @@ const FirebaseRegister = ({ ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-            {/* Add area field */}
-
-            {/* End of area field */}
-
-            {/* Rest of the form fields */}
             {values?.role == 'Employer' && (
               <Grid container spacing={matchDownSM ? 0 : 2}>
                 <Grid item xs={12} sm={6}>
@@ -389,7 +427,7 @@ const FirebaseRegister = ({ ...others }) => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label="Name"
+                    label="First Name"
                     margin="normal"
                     name="name"
                     value={values.name}
@@ -403,23 +441,44 @@ const FirebaseRegister = ({ ...others }) => {
                   />
                 </Grid>
               )}
-              <Grid item xs={12} sm={values.role == 'Employee' ? 6 : 12}>
-                <TextField
-                  fullWidth
-                  label="User Name"
-                  margin="normal"
-                  name="username"
-                  value={values.username}
-                  type="text"
-                  defaultValue=""
-                  sx={{ ...theme.typography.customInput }}
-                  error={Boolean(touched.username && errors.username)}
-                  helperText={touched.username && errors.username ? errors.username : ''}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
-              </Grid>
+
+              {values.role == 'Employee' && (
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Last Name"
+                    margin="normal"
+                    name="lastName"
+                    value={values.lastName}
+                    type="text"
+                    defaultValue=""
+                    sx={{ ...theme.typography.customInput }}
+                    error={Boolean(touched.lastName && errors.lastName)}
+                    helperText={touched.lastName && errors.lastName ? errors.lastName : ''}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                  />
+                </Grid>
+              )}
             </Grid>
+
+            <Grid item xs={12} sm={values.role == 'Employee' ? 12 : 12}>
+              <TextField
+                fullWidth
+                label="User Name"
+                margin="normal"
+                name="username"
+                value={values.username}
+                type="text"
+                defaultValue=""
+                sx={{ ...theme.typography.customInput }}
+                error={Boolean(touched.username && errors.username)}
+                helperText={touched.username && errors.username ? errors.username : ''}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+            </Grid>
+
             {values.role == 'Employee' && (
               <Grid container spacing={matchDownSM ? 0 : 2}>
                 <Grid item xs={12} sm={6}>
@@ -432,9 +491,9 @@ const FirebaseRegister = ({ ...others }) => {
                       value={values.area}
                       onChange={(e) => {
                         handleChange(e);
-                        setFieldTouched('area', true, false); // Update touched state for area
+                        setFieldTouched('area', true, false);
                       }}
-                      onBlur={() => setFieldTouched('area', true)} // Update touched state for area on blur
+                      onBlur={() => setFieldTouched('area', true)}
                       label="Area"
                       sx={{ ...theme.typography.customInput }}
                     >
@@ -461,9 +520,9 @@ const FirebaseRegister = ({ ...others }) => {
                       value={values.gender}
                       onChange={(e) => {
                         handleChange(e);
-                        setFieldTouched('gender', true, false); // Update touched state for gender
+                        setFieldTouched('gender', true, false);
                       }}
-                      onBlur={() => setFieldTouched('gender', true)} // Update touched state for gender on blur
+                      onBlur={() => setFieldTouched('gender', true)}
                       label="Gender"
                       sx={{ ...theme.typography.customInput }}
                     >
@@ -567,9 +626,9 @@ const FirebaseRegister = ({ ...others }) => {
                   value={values.role_exp}
                   onChange={(e) => {
                     handleChange(e);
-                    setFieldTouched('role_exp', true, false); // Update touched state for area
+                    setFieldTouched('role_exp', true, false);
                   }}
-                  onBlur={() => setFieldTouched('role_exp', true)} // Update touched state for area on blur
+                  onBlur={() => setFieldTouched('role_exp', true)}
                   label="Role Experience"
                   sx={{ ...theme.typography.customInput }}
                 >
@@ -637,6 +696,34 @@ const FirebaseRegister = ({ ...others }) => {
                     sx={{ ...theme.typography.customInput }}
                   />
                 </FormControl>
+                {values.role == 'Employee' && (
+                  <Grid item xs={12} sm={12}>
+                    <FormControl fullWidth sx={{ ...theme.typography.customInput }}>
+                      <Button
+                        {...getRootProps({ className: 'dropzone' })}
+                        disableElevation
+                        size="large"
+                        variant="outlined"
+                        color="secondary"
+                        component="span"
+                        onClick={() => document.getElementById('fileInput').click()}
+                      >
+                        {dataLoading.profileLoading && <CircularProgress sx={{ color: '#0000001f', mr: '10px' }} size="20px" />}
+                        <AttachFileIcon />
+                        Upload Resume
+                      </Button>
+                      <input
+                        id="fileInput"
+                        type="file"
+                        style={{ display: 'none' }}
+                        onChange={(event) => {
+                          setSelectedPhoto(event.target.files[0]);
+                        }}
+                      />
+                      {selectedPhoto && <Typography variant="body2">{selectedPhoto.name}</Typography>}
+                    </FormControl>
+                  </Grid>
+                )}
               </>
             )}
             {errors.submit && (
@@ -661,6 +748,8 @@ const FirebaseRegister = ({ ...others }) => {
                 </Button>
               </AnimateButton>
             </Box>
+            <br />
+            <p style={{ textAlign: 'center', fontStyle: 'italic' }}>*Once a password is set, it cannot be changed.</p>
           </form>
         )}
       </Formik>

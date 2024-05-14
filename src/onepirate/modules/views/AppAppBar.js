@@ -1,54 +1,78 @@
-import * as React from 'react';
+// AppAppBar.js
+
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
-// import { Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Drawer from '@mui/material/Drawer';
 import Logo from 'ui-component/LogoNew.png';
-
-const rightLink = {
-  fontSize: 16,
-  color: 'common.white',
-  ml: 3
-};
+import './AppAppBar.css';
 
 function AppAppBar() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setDrawerOpen(open);
+  };
+
   return (
     <div>
       <AppBar position="fixed">
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar sx={{ justifyContent: 'space-between', backgroundColor: '#fff' }}>
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
-            <Link color="inherit" variant="h6" underline="none" href="/work-well" sx={rightLink}>
-              {'Work Well'}
-            </Link>
+            <a href="/home">
+              <img src={Logo} alt="Company Logo" className="headerLogo" />
+            </a>
           </Box>
-
-          {/* <Typography
-            variant="h1"
-            sx={{
-              textAlign: 'center',
-              fontFamily: 'Arial, sans-serif',
-              fontSize: '3rem',
-              fontWeight: 'bold',
-              color: 'transparent',
-              backgroundImage: 'linear-gradient(120deg, #f6d365, #fda085)',
-              WebkitBackgroundClip: 'text',
-              backgroundClip: 'text'
-            }}
-          > */}
-            <img src={Logo} alt="Company Logo" style={{ width: '300px' }} />
-          {/* </Typography> */}
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Link color="inherit" variant="h6" underline="none" href="/login" sx={rightLink}>
-              {'Sign In'}
-            </Link>
-            <Link variant="h6" underline="none" href="/register" sx={{ ...rightLink, color: 'secondary.main' }}>
-              {'Sign Up'}
-            </Link>
+            <div className="headerLinks">
+              <Link color="inherit" variant="h6" underline="none" className="signin-btn" href="/login">
+                {'Sign In'}
+              </Link>
+              <Link color="inherit" variant="h6" underline="none" className="signup-btn" href="/register">
+                {'Sign Up'}
+              </Link>
+            </div>
+            <IconButton
+              className="menuIcon"
+              size="large"
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       <Toolbar />
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <div
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <Box sx={{ width: 250 }}>
+            <Link color="inherit" variant="h6" underline="none" className="drawerLink" href="/login">
+              {'Sign In'}
+            </Link>
+            <Link color="inherit" variant="h6" underline="none" className="drawerLink" href="/register">
+              {'Sign Up'}
+            </Link>
+          </Box>
+        </div>
+      </Drawer>
     </div>
   );
 }

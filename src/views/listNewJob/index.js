@@ -1,4 +1,4 @@
-//  mui library
+// mui library
 import { useTheme } from '@mui/material/styles';
 import { Box, Button, Grid, useMediaQuery, FormControl, InputLabel, MenuItem, FormHelperText, Select } from '@mui/material';
 
@@ -9,7 +9,7 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 import MainCard from 'ui-component/cards/MainCard';
 import TextField from 'ui-component/textField';
 
-//  third-party import
+// third-party import
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -94,7 +94,7 @@ const AccountSettings = () => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
   const appDispatch = useAppDispatch();
 
-  //  formschema validation
+  // formschema validation
   const formSchema = Yup.object().shape({
     company_name: Yup.string()
       .required('Company Name is required')
@@ -150,7 +150,7 @@ const AccountSettings = () => {
         <MainCard sx={{ border: 'none' }} title="List New Job">
           <>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid sx={{ mt: 2 }} container spacing={matchDownSM ? 0 : 2}>
+              <Grid sx={{ mt: 2, mb: matchDownSM ? 2 : 0 }} container spacing={matchDownSM ? 2 : 2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     label="Company Name"

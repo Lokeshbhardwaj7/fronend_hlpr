@@ -32,9 +32,10 @@ export const loginUser = createAsyncThunk('loginUser', async (_request, { dispat
 
 export const registerUser = createAsyncThunk('registerUser', async (_request, { dispatch }) => {
   try {
+    console.log("_request_request", _request)
     dispatch(setLoading(true));
 
-    const response = await apiClient().post(`sign-up`, _request);
+    const response = await apiClient().post(`sign-up`, _request?.formData);
 
     dispatch(setLoading(false));
     if (response?.data) {
